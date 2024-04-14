@@ -15,11 +15,7 @@ const app = express();
 
 
 
-// Proxy middleware for handling other requests
-app.use('/api', createProxyMiddleware({
-  target: 'https://carmony-backend-testing-api.onrender.com/',
-  changeOrigin: true,
-}));
+
 
 // Middleware to parse JSON body for POST requests with a limit of 20MB
 app.use(express.json({ limit: '20mb' }));
