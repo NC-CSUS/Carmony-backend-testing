@@ -9,12 +9,18 @@ import postingRoutes from './routes/postingRoutes.js';
 import postRoutes from './routes/postRoutes.js'; // Assuming postRoutes is CommonJS
 import profileRoutes from './routes/profileRoutes.js'; // Assuming profileRoutes is CommonJS
 import vehicleRoutes from './routes/vehicleRoutes.js'
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 dotenvConfig();
 
 
 //express app
 const app = express()
+
+app.use('/api', createProxyMiddleware({
+  target: 'https://carmony-backend-testing-api.onrender.com',
+  changeOrigin: true,
+}));
 
 ///middleware, parse json body for post request
 //app.use(express.json())
