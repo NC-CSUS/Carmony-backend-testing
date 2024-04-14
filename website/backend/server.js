@@ -16,11 +16,11 @@ const app = express();
 // Middleware to handle HEAD requests
 app.use((req, res, next) => {
   if (req.method === 'HEAD') {
-    console.log(req.path, req.method);
+    console.log(req.path, req.method, req.body);
     // Respond to HEAD requests
     res.sendStatus(200);
   } else {
-    console.log(req.path, req.method);
+    console.log(req.path, req.method, req.body);
     // Call the next middleware in the chain
     next();
   }
@@ -36,7 +36,7 @@ app.use(express.urlencoded({ limit: '20mb', extended: true }));
 
 // Log path and request type
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  console.log(req.path, req.method, req.body);
   next();
 });
 
