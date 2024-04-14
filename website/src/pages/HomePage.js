@@ -331,12 +331,15 @@ const HomeIndex = () => {
   //Need to limit how many get pulled with it getting more when it reaches bottom of screen or by clicking next page
   useEffect(() => {
     const fetchPosts = async () => {
+      console.log("fetching posts");
       const response = await fetch('/api/postRoutes?sort=-createdAt')
       const json = await response.json()
 
       if(response.ok){
         console.log('response Ok')
         dispatch({type: 'SET_POSTS', payload: json})
+      } else {
+        console.log(response, response.body, response.json);
       }
     }
     
