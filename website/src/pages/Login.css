@@ -1,0 +1,156 @@
+.navbarMenu {
+    background-color: #000000;
+    height: 100px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.hamburger-bars {
+    margin-left: 2rem;
+    font-size: 2.7rem;
+    background: none;
+}
+.logo {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+.logo img {
+    width: 200px;
+    margin-left: 3rem;
+    padding-bottom: 80px;
+}
+
+.nav-bar-menu {
+    background-color: #000;
+    width: 320px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%; /*display the hamburgerMenu bar*/
+    transition: 850ms;
+    z-index: 2; /* Set a higher z-index value */
+  }
+  
+  .nav-bar-menu.active {
+    left: 0;
+    transition: 350ms;
+  }
+  
+  .nav-bar-text {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+  }
+  
+  .nav-bar-text a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 22px;
+    width: 85%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+  }
+  
+  .nav-bar-text a:hover {
+    background-color: rgb(2, 125, 167);
+    
+  }
+  
+  .nav-bar-menu-items {
+    width: 100%;
+  }
+  
+  .nav-bar-toggle {
+    background-color: #000;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+span {
+    margin-left: 16px;
+}
+
+
+.container{
+    height: 800px;
+}
+
+.login-box{
+    background:#e2e2e2;
+    padding: 30px 120px;
+    width: 600px;
+    height: 620px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgb(73, 69, 69);
+}
+
+.create-link {
+    text-align: center;
+    display: flex;
+    margin-left: 2rem;
+}
+
+.create-link h4 a{
+    color: #2d6efa;
+    font-weight: 600;
+    margin-left: 1rem;
+}
+
+.create-link h4 a:hover{
+    text-decoration: underline;
+}
+
+.remember-forgot {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forgot h4 a{
+    color: #2d6efa;
+    text-decoration: none;
+}
+
+.remember-forgot h4 a:hover{
+    text-decoration: underline;
+}
+
+.socialConnect button{
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    border-radius: 30px;
+    background: transparent;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.login-box button img{
+    width: 20px;
+    margin-right: 0.5rem;
+}
