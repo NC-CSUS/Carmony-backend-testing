@@ -13,7 +13,16 @@ dotenvConfig();
 // express app
 const app = express();
 
-
+// Middleware to handle HEAD requests
+app.use((req, res, next) => {
+  if (req.method === 'HEAD') {
+    // Respond to HEAD requests
+    res.sendStatus(200);
+  } else {
+    // Call the next middleware in the chain
+    next();
+  }
+});
 
 
 
