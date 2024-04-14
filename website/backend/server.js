@@ -7,6 +7,7 @@ import postRoutes from './routes/postRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
 import vehicleRoutes from './routes/vehicleRoutes.js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import cors from 'cors';
 
 dotenvConfig();
 
@@ -24,6 +25,13 @@ app.use((req, res, next) => {
     // Call the next middleware in the chain
     next();
   }
+});
+
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
 });
 
 
