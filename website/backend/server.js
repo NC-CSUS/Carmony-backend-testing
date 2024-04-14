@@ -18,7 +18,7 @@ dotenvConfig();
 const app = express()
 
 app.use('/api', createProxyMiddleware({
-  target: 'https://carmony-backend-testing-api.onrender.com',
+  target: 'https://carmony-backend-testing-api.onrender.com/',
   changeOrigin: true,
 }));
 
