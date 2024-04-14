@@ -14,6 +14,8 @@ dotenvConfig();
 // express app
 const app = express();
 
+app.options('*', cors());
+
 // Middleware to handle HEAD requests
 app.use((req, res, next) => {
   if (req.method === 'HEAD') {
