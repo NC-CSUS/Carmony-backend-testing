@@ -1,5 +1,5 @@
 {
-  "proxy": "https://carmony-backend-testing-api.onrender.com",
+  "proxy": "https://api.carmony.onrender.com",
   "name": "website",
   "version": "0.1.0",
   "private": true,
