@@ -8,13 +8,18 @@ import profileRoutes from './routes/profileRoutes.js';
 import vehicleRoutes from './routes/vehicleRoutes.js';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cors from 'cors';
+;
 
 dotenvConfig();
 
 // express app
 const app = express();
 
-app.options('*', cors());
+//app.options('*', cors());
+
+// Allow requests from specific origin
+app.use(cors({ origin: 'https://carmony.onrender.com/' }))
+
 
 // Middleware to handle HEAD requests
 app.use((req, res, next) => {
