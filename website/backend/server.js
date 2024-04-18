@@ -18,7 +18,9 @@ const app = express();
 //app.options('*', cors());
 
 // Allow requests from specific origin
-app.use(cors({ origin: 'https://carmony.onrender.com/' }))
+//app.use(cors({ origin: 'https://carmony.onrender.com/' }))
+
+app.use(cors());
 
 
 // Middleware to handle HEAD requests
