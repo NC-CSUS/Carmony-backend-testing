@@ -1,84 +1,61 @@
-import { posting} from '../controllers/postingController.js';
+import { posting } from '../controllers/postingController.js';
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
-//import { fromIni } from "@aws-sdk/credential-provider-node/dist-es/index.js"
-
 import AWS from 'aws-sdk'; // Import the AWS SDK
-//import { v4 as uuid } from "uuid";
 import express from 'express';
 import multer from 'multer';
+import sharp from 'sharp'; // Import sharp for image resizing
 
-//const storage = multer.memoryStorage();
-
+// Set up multer memory storage with a 10MB limit
 const storage = multer.memoryStorage({
-  // Set maximum file size to 10MB
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
 });
-
-
 const upload = multer({ storage });
 
-//AWS
-
-
+// Configure AWS SDK with your credentials and desired region
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: 'us-west-1' // Set your desired AWS region
 });
 
+// Create an S3 client
 const s3 = new S3Client();
 
-//
+// Create an Express router
+const router = express.Router();
 
+// Route for posting form data (without image)
+router.post('/Posting', posting);
 
-const router = express.Router()
-//*********ROUTES**********//
+// Route for uploading images
+router.post('/UploadImage', upload.single('image'), async (req, res) => {
+  try {
+    // Resize the image using sharp
+    const resizedImageBuffer = await sharp(req.file.buffer)
+      .resize({ width: 800 }) // Resize to a width of 800 pixels (adjust as needed)
+      .toBuffer();
 
-//posting route for form data minus image
-
-//WORKING 
-router.post('/Posting', posting)
-
-//TEST
-
-
-//TEST
-
-
-//image posting route 
-router.post('/UploadImage', upload.single('image'), async (req, res) =>  {
-
-    //image file pulled from request body, parsed by multer ^
-    const { file } = req;
-    //folder name inside S3 bucket WITH UNIQUE ID ATTACKED UUID
-    //const userId = 'testing2fuckyea'
-
+    // Get the formID from the request body
     const key = req.body.formID;
-    //const key = postId; 
 
-    //console.log("testing id:", postId)
-
-    //send key and image info (buffer and mimetype) to bucket
+    // Create a PutObjectCommand with the resized image buffer
     const command = new PutObjectCommand({
-      Bucket:process.env.BUCKET,
-      Key:key,          
-      Body: file.buffer,
-      ContentType: file.mimetype,  });
+      Bucket: process.env.BUCKET,
+      Key: key,
+      Body: resizedImageBuffer, // Use the resized image buffer
+      ContentType: req.file.mimetype,
+    });
 
-      try {
-        s3.send(command);
-        console.log("image upload success")
+    // Send the command to S3
+    await s3.send(command);
 
+    console.log("Image upload success");
+    return res.status(200).send('Image upload successful');
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-    } catch (error) {
-        console.log(error);
-        return { error };
-    }
-
-    return res.status(200).send('image upload succesful')
-    
-  });
-
-
-//module.exports = router
+// Export the router
 export default router;
